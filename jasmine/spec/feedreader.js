@@ -1,6 +1,6 @@
-$(function() {
+$(function () {
 
-    describe('RSS Feeds', function() {
+    describe('RSS Feeds', function () {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
          * empty. Experiment with this before you get started on
@@ -8,7 +8,7 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        it('are defined', function() {
+        it('are defined', function () {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
@@ -44,9 +44,9 @@ $(function() {
         });
 
         /* This test ensures that the class changes when the menu button is clicked
-        * Note that the bodyClasses variable has to be refreshed after the click and before checking
-        * that the body element has (or has not) the menu-hidden class.
-        */
+         * Note that the bodyClasses variable has to be refreshed after the click and before checking
+         * that the body element has (or has not) the menu-hidden class.
+         */
         it('should become visible or hide when the button is clicked', function () {
             menuIcon = $('.menu-icon-link');
 
@@ -69,15 +69,12 @@ $(function() {
          * waits for the function to complete before checking the result.
          */
         beforeEach(function (done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
-        it('there is at least one entry in the feed', function (done) {
+        it('there is at least one entry in the feed', function () {
             nEntries = $('.entry').length;
             expect(nEntries).toBeGreaterThan(0);
-            done();
         });
 
     });
@@ -89,20 +86,19 @@ $(function() {
             newContent;
 
         beforeEach(function (done) {
-            loadFeed(0, function() {
-                content = $('.entry').text();
-                done();
+            loadFeed(0, function () {
+                content = $('.feed').text();
+                console.log(content);
+                loadFeed(1, function () {
+                    newContent = $('.feed').text();
+                    console.log(newContent);
+                    done();
+                });
             });
-            loadFeed(1, function () {
-                newContent = $('.entry').text();
-                done();
-            })
         });
 
-        it('there is actually new content when new data is loaded', function (done) {
+        it('there is actually new content when new data is loaded', function () {
             expect(content).not.toBe(newContent);
-            done();
         });
-
     });
 }());
